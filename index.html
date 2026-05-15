@@ -127,6 +127,58 @@
       text-shadow: 0 0 36px rgba(125, 249, 255, 0.18);
     }
 
+    .top-bar {
+      position: fixed;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      width: min(90vw, 720px);
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .input-label {
+      white-space: nowrap;
+      color: rgba(255,255,255,0.72);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      user-select: none;
+    }
+
+    .prompt-input {
+      width: 100%;
+      padding: 1rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      outline: none;
+      backdrop-filter: blur(16px);
+      box-shadow:
+        0 10px 40px rgba(0,0,0,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      transition:
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .prompt-input::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+
+    .prompt-input:focus {
+      border-color: rgba(125,249,255,0.7);
+      background: rgba(255,255,255,0.12);
+      transform: scale(1.015);
+    }
+
     .gradient-text {
       background: linear-gradient(90deg, #ffffff, var(--cyan), var(--violet), var(--rose), #ffffff);
       background-size: 260% auto;
@@ -200,8 +252,30 @@
     <span></span><span></span><span></span><span></span><span></span>
   </div>
 
+  <div class="top-bar">
+    <label class="input-label" for="textInput">Edit Text</label>
+
+    <input
+      id="textInput"
+      class="prompt-input"
+      type="text"
+      placeholder="Type something inspiring..."
+      value="It's especially easy once you learn enough to leverage AI for your benefit."
+    />
+  </div>
+
   <main class="card">
-    <h1><span class="gradient-text">@labubu It's especially easy once you learn enough to leverage AI for your benefit.</span></h1>
+    <h1><span id="heroText" class="gradient-text">It's especially easy once you learn enough to leverage AI for your benefit.</span></h1>
   </main>
+
+  <script>
+    const input = document.getElementById('textInput');
+    const heroText = document.getElementById('heroText');
+
+    input.addEventListener('input', () => {
+      const value = input.value.trim();
+      heroText.textContent = value || ' ';
+    });
+  </script>
 </body>
 </html>
